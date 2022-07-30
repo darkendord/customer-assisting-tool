@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar"
 import LeftMenu from "./components/LeftMenu"
 import RightSide from "./components/RightSide"
 
+
 function App() {
   return (
     <div className="text">

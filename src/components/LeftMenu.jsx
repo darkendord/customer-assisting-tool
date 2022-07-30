@@ -5,7 +5,7 @@ export default function LeftMEnu() {
     <ul className="menu 
       mt-[20px] 
       flex gap-[20px] 
-      bg-base-200 w-56 
+      bg-base-200 w-80 
       h-screen rounded-box
       mb-[20px]
       ml-[20px]
