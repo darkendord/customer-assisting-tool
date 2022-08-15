@@ -62,7 +62,7 @@ export default function AccountSettings() {
               id="address"
               placeholder="Update address:"
             />
-            <button class="btn btn-primary"
+            <button className="btn btn-primary"
               type="submit"
             >Submit</button>
           </form>

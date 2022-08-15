@@ -10,12 +10,11 @@ const [customersData, setCustomersData] = useState([])
 
 useEffect(()=>{
   fetch(API_URL)
-  .then(res=> res.json())
-  .then((data)=>setCustomersData(data))
+  .then(res=>res.json())
+  .then((data)=>{
+    setCustomersData(data)
+  })
 },[])
-
-console.log(customersData)
-
 
 
   return (
@@ -59,7 +58,7 @@ export default function RightSide() {
           </p>
         </div>
         <div className="ml-3  flex items-center">
-          <textarea class="textarea textarea-primary max-h-[150px] mb-3 w-auto resize-none" placeholder="Customer notes" rows="50" cols="100">
+          <textarea className="textarea textarea-primary max-h-[150px] mb-3 w-auto resize-none" placeholder="Customer notes" rows="50" cols="100">
           </textarea>
           <button className="btn btn-primary ml-2 mt-10">Add note</button>
         </div>
