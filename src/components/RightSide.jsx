@@ -1,10 +1,24 @@
-
+import {useEffect, useState} from "react";
+import axios from "axios";
+import { data } from "autoprefixer";
 //////////////////////////
 //// USERS COMPONENT////
 /////////////////////////
 function Users() {
-  return (
+const API_URL = "https://cat-node-api.herokuapp.com/api/customers"
+const [customersData, setCustomersData] = useState([])
 
+useEffect(()=>{
+  fetch(API_URL)
+  .then(res=> res.json())
+  .then((data)=>setCustomersData(data))
+},[])
+
+console.log(customersData)
+
+
+
+  return (
     <div className="avatar ml-[30px] flex flex-col">
       <div className="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 mb-5">
         <img src="https://placeimg.com/192/192/people" />
@@ -47,7 +61,7 @@ export default function RightSide() {
         <div className="ml-3  flex items-center">
           <textarea class="textarea textarea-primary max-h-[150px] mb-3 w-auto resize-none" placeholder="Customer notes" rows="50" cols="100">
           </textarea>
-          <button class="btn btn-primary ml-2 mt-10">Add note</button>
+          <button className="btn btn-primary ml-2 mt-10">Add note</button>
         </div>
 
       </div>
