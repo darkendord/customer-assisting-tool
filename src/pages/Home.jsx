@@ -1,37 +1,10 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from "../Context/UserContext";
 
 export default function Home() {
 
-  const API_URL = "https://cat-node-api.herokuapp.com/api/customers"
-
-const [customersData, setCustomersData] = useState([])
-const [input, setInput] = useState("")
-const [filtered, setFiltered] = useState([])
-
-function handleClick(){
-customersData.filter((item)=> {
-    if(item.name.toLowerCase() === input.toLocaleLowerCase() || item._id.toLowerCase() === input.toLocaleLowerCase()){
-      setFiltered(item)
-      setInput("")
-    }
-})
-}
-
-
-useEffect(()=>{
-  fetch(API_URL)
-  .then(res=>res.json())
-  .then((data)=>{
-    setCustomersData(data)
-  })
-},[])
-
-function handleChange(e){
-  e.preventDefault();
-  setInput(e.target.value);
-}
-
-console.log(input)
+  const {input, handleChange, handleClick, filtered} = useContext(UserContext);
+  
 
   return (
     <>
@@ -58,8 +31,8 @@ console.log(input)
           </button>
           </div>
 
-          <ul className="search-resut ml-2">
-            {<div> Customer: {filtered.name}</div>}
+          <ul className="search-resut ml-2 mt-4">
+            {<div> Customer: {filtered ? <button className="btn btn-sm">{filtered.name}</button>: null}</div>}
           </ul>
         </div>
       </div>

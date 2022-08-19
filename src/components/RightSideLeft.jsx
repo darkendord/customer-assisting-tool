@@ -1,5 +1,6 @@
 
 export default function RightSideLeft() {
+
   return (
     <>
      <div className="bg-base-200 w-[100%] max-h-full flex flex-col justfy-center items-center ml-[30px] rounded-box mb-[20px] mt-[20px] mr-[20px]">

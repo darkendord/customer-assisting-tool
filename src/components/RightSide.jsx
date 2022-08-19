@@ -1,20 +1,11 @@
-import {useEffect, useState} from "react";
-import axios from "axios";
-import { data } from "autoprefixer";
-//////////////////////////
-//// USERS COMPONENT////
-/////////////////////////
-function Users() {
-const API_URL = "https://cat-node-api.herokuapp.com/api/customers"
-const [customersData, setCustomersData] = useState([])
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from "../Context/UserContext";
 
-useEffect(()=>{
-  fetch(API_URL)
-  .then(res=>res.json())
-  .then((data)=>{
-    setCustomersData(data)
-  })
-},[])
+
+function Users() {
+const {input, handleChange, handleClick, filtered} = useContext(UserContext);
+
+console.log(filtered)
 
 
   return (
@@ -23,8 +14,8 @@ useEffect(()=>{
         <img src="https://placeimg.com/192/192/people" />
       </div>
       <ul>
-        <li className="font-bold">Fullname:</li>
-        <li className="font-bold">age:</li>
+        <li className="font-bold">Fullname:</li> {filtered.name}
+        <li className="font-bold">age:</li> {filtered.age}
         <li className="font-bold">SSN:</li>
         <li className="font-bold">Phone number:</li>
         <li className="font-bold">Type of customer: (platinium)</li>
