@@ -3,9 +3,9 @@ import { UserContext } from "../Context/UserContext";
 
 
 function Users() {
-const {input, handleChange, handleClick, filtered} = useContext(UserContext);
+const {input, handleChange, handleClick, updateData} = useContext(UserContext);
 
-console.log(filtered)
+console.log(updateData)
 
 
   return (
@@ -14,8 +14,8 @@ console.log(filtered)
         <img src="https://placeimg.com/192/192/people" />
       </div>
       <ul>
-        <li className="font-bold">Fullname:</li> {filtered.name}
-        <li className="font-bold">age:</li> {filtered.age}
+        <li className="font-bold">Fullname:</li> {updateData.name}
+        <li className="font-bold">age:</li> {updateData.age}
         <li className="font-bold">SSN:</li>
         <li className="font-bold">Phone number:</li>
         <li className="font-bold">Type of customer: (platinium)</li>

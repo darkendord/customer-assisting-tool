@@ -3,7 +3,7 @@ import { UserContext } from "../Context/UserContext";
 
 export default function Home() {
 
-  const {input, handleChange, handleClick, filtered} = useContext(UserContext);
+  const {input, handleChange, handleClick, filtered, renderData} = useContext(UserContext);
   
 
   return (
@@ -31,8 +31,8 @@ export default function Home() {
           </button>
           </div>
 
-          <ul className="search-resut ml-2 mt-4">
-            {<div> Customer: {filtered ? <button className="btn btn-sm">{filtered.name}</button>: null}</div>}
+          <ul className="search-resut ml-2 mt-5">
+            {<div> Customer:{handleClick ? <a onClick={()=>renderData()} className="p-2 ml-2 cursor-pointer font-bold rounded-lg text-white bg-slate-900">{filtered.name}</a>: null}</div>}
           </ul>
         </div>
       </div>

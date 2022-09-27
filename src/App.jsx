@@ -23,6 +23,7 @@ function App() {
 const [customersData, setCustomersData] = useState([])
 const [input, setInput] = useState("")
 const [filtered, setFiltered] = useState([])
+const [updateData, setUpdateData] = useState([])
 
 function handleClick(){
 input ? customersData.map((item)=> {
@@ -49,12 +50,15 @@ function handleChange(e){
 }
 
 
+function renderData(){
+  setUpdateData(filtered)
+}
 
 
 
   return (
     <div className="text">
-      <UserContext.Provider value={{customersData, setCustomersData, input, setInput, filtered, setFiltered, handleChange, handleClick}}>
+      <UserContext.Provider value={{customersData, setCustomersData, input, setInput, filtered, setFiltered, handleChange, handleClick, updateData,renderData}}>
       <Navbar />
       <div className="flex justify-between">
         <BrowserRouter>

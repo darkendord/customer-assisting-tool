@@ -8,7 +8,6 @@ export default function AccountSettings() {
           <div className="mb-7 flex justify-center gap-[80px] md:gap-[15px] border-8 p-3">
             <div className="text-center">
               <h1 className="font-bold text-xl">Account settings</h1>
-
             </div>
           </div>
 
