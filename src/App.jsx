@@ -12,6 +12,7 @@ import CustomerAccounts from "./pages/CustomerAccounts"
 import AccountSettings from "./pages/AccountSettings"
 import ChatSupport from "./pages/ChatSupport"
 import Escalation from "./pages/Escalation"
+import Login from "./pages/Login";
 import { UserContext } from "./Context/UserContext";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -59,7 +60,8 @@ function renderData(){
   return (
     <div className="text">
       <UserContext.Provider value={{customersData, setCustomersData, input, setInput, filtered, setFiltered, handleChange, handleClick, updateData,renderData}}>
-      <Navbar />
+          <Login />
+      {/* <Navbar />
       <div className="flex justify-between">
         <BrowserRouter>
       <LeftMenu/>
@@ -72,7 +74,7 @@ function renderData(){
         </Routes>
       <RightSide />
       </BrowserRouter>
-      </div>
+      </div> */}
       </UserContext.Provider>
     </div>
   );
