@@ -1,4 +1,8 @@
 export default function AccountSettings() {
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+  }
   return (
     <>
       <div className="bg-base-200 w-[100%] max-h-full flex flex-col justfy-center items-center ml-[30px] rounded-box mb-[20px] mt-[20px] mr-[20px]">
@@ -11,7 +15,7 @@ export default function AccountSettings() {
             </div>
           </div>
 
-          <form id="input-container" className="flex flex-col w-[75%] ml-3">
+          <form onSubmit={(e) => handleSubmit(e)} id="input-container" className="flex flex-col w-[75%] ml-3">
 
             <p>Name:</p>
             <input className="border-2 mb-2"
