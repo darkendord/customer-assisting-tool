@@ -11,7 +11,7 @@ export default function LeftMEnu() {
       mb-[20px]
       ml-[20px]
       ">
-        <Link to="/" className="btn btn-primary">Home</Link>
+        <Link to="/home" className="btn btn-primary">Home</Link>
       <li className="hover-bordered font-bold text-xl"><Link to="/accountsettings">Account settings.</Link></li>
       <li className="hover-bordered font-bold text-xl"><Link to="customeraccounts">Customer accounts.</Link></li>
       <li className="hover-bordered font-bold text-xl"><Link to="/chatsupoort">Chat support.</Link></li>
