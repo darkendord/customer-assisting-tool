@@ -1,0 +1,52 @@
+@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .page-base-styles {
+    @apply flex h-screen items-center bg-[#d9e4dc];
+  }
+
+  .comment-container {
+    @apply bg-white p-4 flex flex-col gap-4 mb-4 mt-4 overflow-y-scroll;
+    height: 280px;
+    /* Custom height since h-70 is not a Tailwind class */
+  }
+}
+
+.active {
+  color: #d68239;
+  background-color: #f9eedb;
+  font-weight: 500;
+  font-size: x-large;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+  transition: all 0.2s ease-in;
+}
+
+.inactive {
+  color: #6a7282;
+  font-weight: 400;
+  font-size: large;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s ease-out;
+}
+
+.active:hover {
+  color: #e8bf89;
+}
+
+.inactive:hover {
+  color: #e8bf89;
+}
+
+.border-radius {
+  border-radius: 32px;
+}
