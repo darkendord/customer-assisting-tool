@@ -1,36 +1,36 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Employee } from "./employeeModel";
-import { fetchEmployees } from "./employeeThunks";
+import { fetchEmployeeByEmail } from "./employeeThunks";
 
 interface EmployeeState {
-    employees: Employee[];
-    loading: boolean;
+    current: Employee | null;
+    isLoading: boolean;
     error: string | null;
 }
 
 const initialState: EmployeeState = {
-    employees: [],
-    loading: false,
+    current: null,
+    isLoading: false,
     error: null,
 };
 
 const employeeSlice = createSlice({
-    name: "employees",
+    name: "employee",
     initialState,
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(fetchEmployees.pending, (state) => {
-                state.loading = true;
+            .addCase(fetchEmployeeByEmail.pending, (state) => {
+                state.isLoading = true;
                 state.error = null;
             })
-            .addCase(fetchEmployees.fulfilled, (state, action) => {
-                state.employees = action.payload;
-                state.loading = false;
+            .addCase(fetchEmployeeByEmail.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.current = action.payload;
             })
-            .addCase(fetchEmployees.rejected, (state, action) => {
-                state.loading = false;
-                state.error = action.error.message ?? "Failed to fetch employees";
+            .addCase(fetchEmployeeByEmail.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload as string || "Employee not found";
             });
     },
 });

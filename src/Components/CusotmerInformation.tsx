@@ -1,3 +1,4 @@
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../app/store';
 import { CustomerModel } from '../features/customers/customerModel';
@@ -68,4 +69,4 @@ function CustomerInformation() {
     );
 }
 
-export default CustomerInformation;
+export default React.memo(CustomerInformation);

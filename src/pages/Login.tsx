@@ -2,16 +2,21 @@ import { useAppDispatch, useAppSelector } from "../hooks/useTypedHooks";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { loginEmployee } from "../features/auth/authThunk";
+import { fetchEmployeeByEmail } from "../features/employees/employeeThunks";
+
 import { useAuthStatus } from "../hooks/useAuthStatus";
 
 export default function Login() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { loading, error, employee } = useAppSelector((state) => state.auth);
+  const employeeState = useAppSelector((state) => state.employee);
+
   const { isLoggedIn } = useAuthStatus();
 
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [localError, setLocalError] = useState<string | null>(null);
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -21,11 +26,22 @@ export default function Login() {
 
   const handleSubmit = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
+    setLocalError(null);
+
+    const result = await dispatch(fetchEmployeeByEmail(email));
+    console.log("Fetch Employee Result:", result);
+
+    if (fetchEmployeeByEmail.rejected.match(result)) {
+      setLocalError("Employee not found or not authorized.");
+      return;
+    }
+
     try {
       const response = await dispatch(loginEmployee({ email, password })).unwrap();
       console.log("Login successful", response);
       navigate("/dashboard");
     } catch (error) {
+      setLocalError("Login Failed: " + (error as string));
       console.error("Login Failed: ", error);
     }
   };
@@ -90,9 +106,9 @@ export default function Login() {
               className="mt-2 block w-full rounded-lg bg-[#fbf4e9] px-3 py-2 text-base text-[#3a1b10] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#3a1b10] border border-gray-200"
             />
           </div>
-          {error && (
+          {(localError || error || employeeState.error) && (
             <p className="text-sm text-red-600 text-center">
-              {error}
+              {localError || error || employeeState.error}
             </p>
           )}
           <div>

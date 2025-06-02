@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../app/store";
 import { getSingleCustomer } from "../features/customers/customerThunk";
@@ -37,4 +37,4 @@ const SearchCustomer = () => {
     );
 }
 
-export default SearchCustomer;
+export default React.memo(SearchCustomer);
