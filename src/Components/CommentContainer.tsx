@@ -1,6 +1,6 @@
 interface CommentProps {
     date: string;
-    text: string;
+    text: React.ReactNode;
 }
 const CommentContainer: React.FC<CommentProps> = ({ date, text }) => {
 
