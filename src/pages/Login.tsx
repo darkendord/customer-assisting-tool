@@ -48,7 +48,7 @@ export default function Login() {
 
   return (
     <div className="w-full max-w-md bg-white rounded-3xl shadow-lg p-8 mx-auto">
-      <div className="w-full max-w-md bg-white rounded-3xl shadow-lg p-8">
+      <div className="w-full max-w-md bg-white p-8">
         <div className="flex flex-col items-center">
           {/* Generic user icon SVG */}
           <div className="bg-[#3a1b10] rounded-full p-3 mb-4">
@@ -64,7 +64,7 @@ export default function Login() {
             </svg>
           </div>
           <h2 className="text-2xl font-bold tracking-tight text-[#3a1b10] mb-2">
-            Sign in to CAT
+            Sign in to CTM
           </h2>
           <p className="text-sm text-gray-500 mb-6">Enter your email and password to continue</p>
         </div>

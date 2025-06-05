@@ -9,7 +9,7 @@ export default function SideMenu() {
     <aside className="w-64 h-[80vh] flex flex-col bg-[#3a1b10] text-white shadow-lg rounded-[32px] mt-15 ml-5">
       <div className="flex items-center justify-center h-20 bg-[#4b2e19] rounded-t-[32px]">
         <Link to="/Dashboard" className="text-3xl font-bold tracking-wide">
-          CAT
+          CMT
         </Link>
       </div>
       <nav className="flex flex-col flex-1 items-start p-6 space-y-3">
