@@ -60,7 +60,10 @@ function CustomerInformation() {
                             <span className="font-normal">{selectedCustomer.customer_type}</span>
                         </p>
                         <p className="font-bold">
-                            Status: <span className="font-normal">{selectedCustomer.status}</span>
+                            Status: <span
+                                style={{ color: 'white', padding: '2px 8px', borderRadius: '20px', backgroundColor: selectedCustomer.status === 'Active' ? '#28a745' : '#dc3545' }}
+                                className="font-normal"
+                            >{selectedCustomer.status}</span>
                         </p>
                     </div>
                 </div>

@@ -17,7 +17,15 @@ const initialState: CommentsState = {
 const commentSlice = createSlice({
     name: "comments",
     initialState,
-    reducers: {},
+    reducers: {
+        resetError(state) {
+            state.error = null;
+        },
+        clearCommentsData(state) {
+            state.data = [];
+            state.error = null;
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(getComments.pending, (state) => {
@@ -37,5 +45,6 @@ const commentSlice = createSlice({
             });
     },
 });
+export const { resetError, clearCommentsData } = commentSlice.actions;
 
 export default commentSlice.reducer;

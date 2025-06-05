@@ -23,7 +23,7 @@ const customerSlice = createSlice({
         resetError(state) {
             state.error = null;
         },
-        clearData(state) {
+        clearCustomerData(state) {
             state.data = [];
             state.selectedCustomer = null;
             state.error = null;
@@ -60,5 +60,5 @@ const customerSlice = createSlice({
     },
 });
 
-export const { resetError, clearData } = customerSlice.actions;
+export const { resetError, clearCustomerData } = customerSlice.actions;
 export default customerSlice.reducer;

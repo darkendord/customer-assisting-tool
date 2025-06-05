@@ -17,7 +17,15 @@ const initialState: ProductState = {
 const productSlice = createSlice({
     name: "products",
     initialState,
-    reducers: {},
+    reducers: {
+        resetError(state) {
+            state.error = null;
+        },
+        clearProductData(state) {
+            state.data = [];
+            state.error = null;
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(getCustomerProducts.pending, (state) => {
@@ -34,5 +42,5 @@ const productSlice = createSlice({
             });
     },
 });
-
+export const { resetError, clearProductData } = productSlice.actions;
 export default productSlice.reducer;

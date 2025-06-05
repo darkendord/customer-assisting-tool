@@ -1,10 +1,30 @@
+import { useEffect } from "react"
+import { useAppDispatch, useAppSelector } from "../hooks/useTypedHooks"
+import { fetchReports } from "../features/reports/reportThunk"
+import ReportForm from "../features/reports/ReportForm"
+import ReportsTable from "../features/reports/ReportsTable"
+import ReportDetail from "../features/reports/ReportDetail"
 
 function Reports() {
+  const dispatch = useAppDispatch()
+  const { selectedCustomer } = useAppSelector((state) => state.customers)
+
+  useEffect(() => {
+    if (selectedCustomer?.customer_id) {
+      dispatch(fetchReports(selectedCustomer.customer_id))
+    }
+  }, [dispatch, selectedCustomer])
+
   return (
     <div className="w-full max-w-5xl mx-auto">
+      <ReportForm />
       <div className="bg-white rounded-3xl shadow-lg p-8">
-        <h2 className="text-2xl font-bold tracking-tight text-[#3a1b10] mb-4">Reports</h2>
+        <h2 className="text-2xl font-bold tracking-tight text-[#3a1b10] mb-4">
+          Reports
+        </h2>
+        <ReportsTable />
       </div>
+      <ReportDetail />
     </div>
   )
 }

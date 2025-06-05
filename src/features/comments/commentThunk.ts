@@ -20,13 +20,13 @@ export const getComments = createAsyncThunk<
 
 // Add a comment
 export const addComment = createAsyncThunk<
-    void,
-    { customer_id: number; employee_username: string; comment_text: string },
-    { rejectValue: string; dispatch: any }
+    CommentData,
+    CommentData, // Now expects type in the payload
+    { rejectValue: string }
 >("comments/addComment", async (comment, { rejectWithValue, dispatch }) => {
     try {
         const response = await axios.post(`${API_URI}/get_comments/`, comment);
-         dispatch(getComments(comment.customer_id));
+        dispatch(getComments(comment.customer_id));
         return response.data;
     } catch (error: any) {
         return rejectWithValue(error.response?.data?.error || error.message || "Failed to add comment");

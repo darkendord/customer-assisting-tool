@@ -39,7 +39,7 @@ export default function Products() {
               {items.map((prod) => (
                 <li key={prod.account_number} className="py-3 flex flex-col">
                   <span className="font-medium text-[#3a1b10]">Account #: {prod.account_number}</span>
-                  <span className="text-sm text-gray-700">Status: {prod.status}</span>
+                  <span className="text-sm text-gray-700" style={{ color: prod.status === 'Active' ? '#28a745' : '#dc3545' }}>Status: {prod.status}</span>
                   {prod.balance !== undefined && (
                     <span className="text-sm text-gray-700">
                       Balance: {prod.balance}

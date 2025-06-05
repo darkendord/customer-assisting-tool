@@ -3,6 +3,8 @@ import employeeReducer from "../features/employees/employeeSlice";
 import customerReducer from "../features/customers/customerSlice"
 import productsReducer from "../features/products/productSlice";
 import commentsReducer from "../features/comments/commentSlice.ts";
+import reportsReducer from "../features/reports/reportSlice";
+
 
 import { FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
@@ -14,13 +16,14 @@ const rootReducer = combineReducers({
     employee: employeeReducer,
     customers: customerReducer,
     products: productsReducer,
-    comments: commentsReducer
+    comments: commentsReducer,
+    reports: reportsReducer
 });
 
 const persistConfig = {
     key: "root",
     storage,
-    whitelist: ["auth", "employee", "customers", "products", "comments"]
+    whitelist: ["auth", "employee", "customers", "products", "comments", "reports"]
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

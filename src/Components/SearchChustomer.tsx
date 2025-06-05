@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../app/store";
 import { getSingleCustomer } from "../features/customers/customerThunk";
+import { clearCustomerData } from "../features/customers/customerSlice";
+import { clearProductData } from "../features/products/productSlice";
+import { clearCommentsData } from "../features/comments/commentSlice.ts";
+import { clearReportsData, clearSelectedReportData } from "../features/reports/reportSlice";
 
 const SearchCustomer = () => {
     const [search, setSearch] = useState<string>("");
@@ -12,6 +16,15 @@ const SearchCustomer = () => {
         if (search) {
             dispatch(getSingleCustomer(search));
         }
+    };
+
+    const handleClear = () => {
+        setSearch("");
+        dispatch(clearCustomerData());
+        dispatch(clearProductData());
+        dispatch(clearCommentsData());
+        dispatch(clearSelectedReportData());
+        dispatch(clearReportsData());
     };
 
     return (
@@ -32,6 +45,12 @@ const SearchCustomer = () => {
                 disabled={!search}
             >
                 Search
+            </button>
+            <button
+                className="ml-2 px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
+                onClick={handleClear}
+            >
+                Clear
             </button>
         </div>
     );
