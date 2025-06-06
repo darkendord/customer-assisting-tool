@@ -2,6 +2,12 @@ import { useEffect, useState } from "react";
 import { auth } from "../firebase/config.ts"; // Adjust path to your Firebase config
 import { User, onAuthStateChanged, signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { clearCustomerData } from "../features/customers/customerSlice";
+import { clearReportsData } from "../features/reports/reportSlice";
+import { clearProductData } from "../features/products/productSlice.ts";
+import { clearCommentsData } from "../features/comments/commentSlice.ts.ts";
+
 
 // Interface for user status
 interface UserStatus {
@@ -36,6 +42,7 @@ export const useAuthStatus = (): UserStatus => {
 
 export const useLogout = (): { handleLogout: () => Promise<void>; isLoading: boolean } => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState(false);
 
     const handleLogout = async (): Promise<void> => {
@@ -47,6 +54,10 @@ export const useLogout = (): { handleLogout: () => Promise<void>; isLoading: boo
         } catch (error) {
             console.error("Error logging out:", error);
         } finally {
+            dispatch(clearCustomerData());
+    dispatch(clearProductData());
+    dispatch(clearReportsData());
+    dispatch(clearCommentsData());
             setIsLoading(false);
         }
     };

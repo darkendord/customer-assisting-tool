@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { loginEmployee } from "../features/auth/authThunk";
 import { fetchEmployeeByEmail } from "../features/employees/employeeThunks";
+import WelcomeModal from "../Components/WelcomeModal";
+
 
 import { useAuthStatus } from "../hooks/useAuthStatus";
 
@@ -16,6 +18,7 @@ export default function Login() {
 
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [showModal, setShowModal] = useState<boolean>(true);
   const [localError, setLocalError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -48,6 +51,7 @@ export default function Login() {
 
   return (
     <div className="w-full max-w-md bg-white rounded-3xl shadow-lg p-8 mx-auto">
+      <WelcomeModal open={showModal} onClose={() => setShowModal(false)} />
       <div className="w-full max-w-md bg-white p-8">
         <div className="flex flex-col items-center">
           {/* Generic user icon SVG */}
