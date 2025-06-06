@@ -18,6 +18,7 @@ function formatTime(seconds: number) {
 
 const AgentBar = () => {
     // Get employee name from Redux (adjust path as needed)
+    // @ts-ignore
     const employee = useAppSelector((state) => state.employee.current?.items?.[0]);
     const [aux, setAux] = useState("Out Of Work");
     const [seconds, setSeconds] = useState(0);

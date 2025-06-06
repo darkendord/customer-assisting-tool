@@ -5,6 +5,7 @@ import { addReport } from "./reportThunk";
 const ReportForm = () => {
     const dispatch = useAppDispatch();
     const { selectedCustomer } = useAppSelector((state) => state.customers);
+    // @ts-ignore
     const employee = useAppSelector((state) => state.employee.current?.items?.[0]);
     const [reportType, setReportType] = useState("");
     const [priority, setPriority] = useState("");

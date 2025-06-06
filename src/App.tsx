@@ -25,7 +25,7 @@ function AppContent() {
   }
 
   return (
-    <>
+    <div className="max-w-[1500px] mx-auto">
       {/* Only show AgentBar if logged in and not on login page */}
       {!isLoginPage && isLoggedIn && <AgentBar />}
 
@@ -63,7 +63,7 @@ function AppContent() {
           </div>
         </main>
       </div>
-    </>
+    </div>
   );
 }
 export default function App() {

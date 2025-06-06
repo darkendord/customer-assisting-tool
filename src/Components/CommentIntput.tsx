@@ -7,6 +7,7 @@ const CommentInput = () => {
     const [text, setText] = useState("");
     const { selectedCustomer } = useAppSelector((state) => state.customers);
     const employeeData = useAppSelector((state) => state.employee.current);
+    //@ts-ignore
     const employee = Array.isArray(employeeData?.items) && employeeData.items.length > 0
         ? employeeData.items[0]
         : null;
@@ -18,6 +19,7 @@ const CommentInput = () => {
             customer_id: selectedCustomer.customer_id,
             employee_username: employee.username,
             comment_text: text.trim(),
+            type: "comment",
         }));
         setText("");
     };
@@ -29,6 +31,7 @@ const CommentInput = () => {
                 placeholder="Write a comment..."
                 value={text}
                 onChange={e => setText(e.target.value)}
+
             />
             <button
                 type="submit"
