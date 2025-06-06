@@ -11,6 +11,7 @@ const CommentInput = () => {
     const employee = Array.isArray(employeeData?.items) && employeeData.items.length > 0
         ? employeeData.items[0]
         : null;
+    //console.log("Employee Data:", employee);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();

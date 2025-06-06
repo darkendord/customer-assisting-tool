@@ -43,7 +43,7 @@ const AgentBar = () => {
                 <div className="flex items-center gap-2">
                     <span className={`w-4 h-4 rounded-full ${auxOption?.color} inline-block border border-gray-300`} />
                     <select
-                        className="rounded px-3 py-1 border border-gray-300 focus:outline-none font-semibold"
+                        className="rounded px-3 py-1 border border-gray-300 focus:outline-none font-semibold bg-white"
                         value={aux}
                         onChange={e => setAux(e.target.value)}
                     >
