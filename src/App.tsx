@@ -10,6 +10,8 @@ import { useAuthStatus } from "./hooks/useAuthStatus";
 import ProtectedRoute from "./Components/ProtectedRoute.tsx";
 import AgentBar from "./Components/AgentBar.tsx";
 
+import GetAssistance from "./pages/GetAssistance";
+import SourceOfKnowledge from "./pages/SourceOfKnowledge";
 
 function AppContent() {
   const location = useLocation();
@@ -58,6 +60,8 @@ function AppContent() {
                 <Route path="/Products" element={<Products />} />
                 <Route path="/Reports" element={<Reports />} />
                 <Route path="/Dashboard" element={<Dashboard />} />
+                <Route path="/GetAssistance" element={<GetAssistance />} />
+                <Route path="/SourceOfKnowledge" element={<SourceOfKnowledge />} />
               </Route>
             </Routes>
           </div>

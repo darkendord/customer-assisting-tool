@@ -61,6 +61,28 @@ export default function SideMenu() {
           <IonIcon name="document" />
           <span className="ml-3">Reports</span>
         </NavLink>
+        <NavLink
+          to="/GetAssistance"
+          className={({ isActive }) =>
+            `flex items-center px-3 py-2 rounded-lg w-full transition ${isActive
+              ? "bg-[#fbf4e9] text-[#3a1b10] font-semibold"
+              : "hover:bg-[#5c3a23] hover:text-[#fbf4e9]"}`
+          }
+        >
+          <IonIcon name="chatbubbles" />
+          <span className="ml-3">Get Assistance</span>
+        </NavLink>
+        <NavLink
+          to="/SourceOfKnowledge"
+          className={({ isActive }) =>
+            `flex items-center px-3 py-2 rounded-lg w-full transition ${isActive
+              ? "bg-[#fbf4e9] text-[#3a1b10] font-semibold"
+              : "hover:bg-[#5c3a23] hover:text-[#fbf4e9]"}`
+          }
+        >
+          <IonIcon name="book" />
+          <span className="ml-3">Source Of Knowledge</span>
+        </NavLink>
       </nav>
       <div className="p-6">
         <button
