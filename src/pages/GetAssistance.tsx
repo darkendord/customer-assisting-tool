@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import ChatMessage from "../Components/ChatMessage";
 import ChatInput from "../Components/ChatInput";
-const BACKEND_URL = "https://cat-chat-bot.onrender.com";
-const STORAGE_KEY = "cat_chat_conversation";
+const STORAGE_KEY = import.meta.env.VITE_STORAGE_KEY;
+const BACKEND_URL = import.meta.env.VITE_AI_CHATBOT_URL;
 
 const GetAssistance = () => {
     const [messages, setMessages] = useState<{ from: "user" | "bot" | "system"; text: string }[]>(() => {
