@@ -10,6 +10,9 @@ const AUX_OPTIONS = [
     { value: "Out Of Work", label: "Out Of Work (OOW)", color: "bg-orange-400" },
 ];
 
+const AUX_STORAGE_KEY = "cat_agent_aux";
+const AUX_TIME_KEY = "cat_agent_aux_start_time";
+
 function formatTime(seconds: number) {
     const m = Math.floor(seconds / 60).toString().padStart(2, "0");
     const s = (seconds % 60).toString().padStart(2, "0");
@@ -17,28 +20,64 @@ function formatTime(seconds: number) {
 }
 
 const AgentBar = () => {
-    // Get employee name from Redux (adjust path as needed)
     // @ts-ignore
     const employee = useAppSelector((state) => state.employee.current?.items?.[0]);
-    const [aux, setAux] = useState("Out Of Work");
+    const [aux, setAux] = useState(() => localStorage.getItem(AUX_STORAGE_KEY) || "Out Of Work");
     const [seconds, setSeconds] = useState(0);
     const timerRef = useRef<NodeJS.Timeout | null>(null);
 
-    // Reset timer on AUX change
+    // On mount, set timer based on localStorage or initialize if missing
     useEffect(() => {
-        setSeconds(0);
+        const storedAux = localStorage.getItem(AUX_STORAGE_KEY) || "Out Of Work";
+        const storedStart = localStorage.getItem(AUX_TIME_KEY);
+
+        setAux(storedAux);
+
+        let initialSeconds = 0;
+        if (storedStart) {
+            const start = parseInt(storedStart, 10);
+            initialSeconds = Math.floor((Date.now() - start) / 1000);
+        } else {
+            // If no start time, set it now
+            localStorage.setItem(AUX_TIME_KEY, Date.now().toString());
+        }
+        setSeconds(initialSeconds);
+
         if (timerRef.current) clearInterval(timerRef.current);
-        timerRef.current = setInterval(() => setSeconds((s) => s + 1), 1000);
+        timerRef.current = setInterval(() => setSeconds(s => s + 1), 1000);
         return () => { if (timerRef.current) clearInterval(timerRef.current); };
+    }, []);
+
+    // On AUX change, reset timer and store new start time
+    useEffect(() => {
+        localStorage.setItem(AUX_STORAGE_KEY, aux);
+        localStorage.setItem(AUX_TIME_KEY, Date.now().toString());
+        setSeconds(0);
+
+        if (timerRef.current) clearInterval(timerRef.current);
+        timerRef.current = setInterval(() => setSeconds(s => s + 1), 1000);
+        return () => { if (timerRef.current) clearInterval(timerRef.current); };
+        // eslint-disable-next-line
     }, [aux]);
+
+    // Update localStorage every second with the new start time (now - seconds)
+    // useEffect(() => {
+    //     const startTime = Date.now() - seconds * 1000;
+    //     localStorage.setItem(AUX_TIME_KEY, startTime.toString());
+    // }, [seconds]);
 
     const auxOption = AUX_OPTIONS.find(opt => opt.value === aux);
 
     return (
-        <header className="w-full bg-[#fbf4e9] shadow flex items-center px-8 py-3 fixed top-0 left-0 z-50 h-20">
-            <div className="flex-1 flex items-center gap-10 justify-center">
+        <header className="fixed top-0 left-0 w-full z-50 bg-[#fbf4e9] shadow h-20 flex items-center justify-center">
+            <div className="w-full max-w-[1500px] flex-1 flex items-center gap-10 justify-center px-8 py-3">
                 <span className="text-[#3a1b10] font-bold text-lg">
-                    Agent: {employee?.employee_name || employee?.username || "Unknown"}
+                    {employee?.role && (
+                        <span className="ml-2 text-xs font-normal text-[#5c3a23] bg-[#f4e6d4] px-2 py-1 rounded">
+                            {employee.role.toUpperCase()}
+                        </span>
+                    )} {employee?.employee_name || employee?.username || "Unknown"}
+
                 </span>
                 <div className="flex items-center gap-2">
                     <span className={`w-4 h-4 rounded-full ${auxOption?.color} inline-block border border-gray-300`} />

@@ -2,9 +2,12 @@ import { Link } from "react-router-dom";
 import { useLogout } from "../hooks/useAuthStatus.ts";
 import MenuItem from "./MenuItem";
 import { motion } from "framer-motion";
+import { useAppSelector } from "../hooks/useTypedHooks";
 
 export default function SideMenu() {
   const { handleLogout, isLoading } = useLogout();
+  // @ts-ignore
+  const employee = useAppSelector((state) => state.employee.current?.items?.[0]);
 
   return (
     <motion.aside
@@ -24,7 +27,10 @@ export default function SideMenu() {
         </Link>
       </motion.div>
       <nav className="flex flex-col flex-1 items-start p-6 space-y-3">
-        <MenuItem to="/Dashboard" icon="grid" label="Dashboard" />
+        {/* Only show Dashboard if role is sup or admin */}
+        {employee && ["sup", "admin"].includes(employee.role) && (
+          <MenuItem to="/Dashboard" icon="grid" label="Dashboard" />
+        )}
         <MenuItem to="/CustomerLookUp" icon="person-circle" label="Customer View" />
         <MenuItem to="/Products" icon="card" label="Products" />
         <MenuItem to="/Reports" icon="document" label="Reports" />

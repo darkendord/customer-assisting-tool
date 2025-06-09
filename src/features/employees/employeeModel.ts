@@ -6,4 +6,5 @@ export interface Employee {
     employeeNumber: string;
     employeeEmail: string;
     isActive: boolean;
+    role: "agent" | "sup" | "admin";
 }

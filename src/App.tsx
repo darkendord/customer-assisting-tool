@@ -27,7 +27,7 @@ function AppContent() {
   }
 
   return (
-    <div className="max-w-[1500px] mx-auto">
+    <div className="max-w-[1500px] mx-auto flex flex-col min-h-screen">
       {/* Only show AgentBar if logged in and not on login page */}
       {!isLoginPage && isLoggedIn && <AgentBar />}
 
