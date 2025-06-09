@@ -13,6 +13,7 @@ import AgentBar from "./Components/AgentBar.tsx";
 import GetAssistance from "./pages/GetAssistance";
 import SourceOfKnowledge from "./pages/SourceOfKnowledge";
 import EmployeeManagement from "./pages/EmployeeManagement";
+import ScreenSizeWarning from "./Components/ScreenSizeWarning.tsx";
 
 function AppContent() {
   const location = useLocation();
@@ -30,6 +31,7 @@ function AppContent() {
 
   return (
     <div className="max-w-[1500px] mx-auto flex flex-col min-h-screen">
+      <ScreenSizeWarning />
       {/* Only show AgentBar if logged in and not on login page */}
       {!isLoginPage && isLoggedIn && <AgentBar />}
 
