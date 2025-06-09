@@ -1,13 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useAppSelector } from "../hooks/useTypedHooks";
 
-const AUX_OPTIONS = [
+// Default AUX options for agents
+const BASE_AUX_OPTIONS = [
     { value: "Ready", label: "Ready", color: "bg-green-500" },
     { value: "After Call", label: "After Call", color: "bg-yellow-400" },
     { value: "System Issue", label: "System Issue", color: "bg-red-500" },
     { value: "Break", label: "Break", color: "bg-yellow-500" },
     { value: "Lunch", label: "Lunch", color: "bg-yellow-400" },
     { value: "Out Of Work", label: "Out Of Work (OOW)", color: "bg-orange-400" },
+];
+
+// Special AUX options for sup and admin
+const SUP_ADMIN_AUX_OPTIONS = [
+    ...BASE_AUX_OPTIONS,
+    { value: "Supervising", label: "Supervising", color: "bg-blue-500" },
+    { value: "Admin Tasks", label: "Admin Tasks", color: "bg-purple-600" },
 ];
 
 const AUX_STORAGE_KEY = "cat_agent_aux";
@@ -25,6 +33,12 @@ const AgentBar = () => {
     const [aux, setAux] = useState(() => localStorage.getItem(AUX_STORAGE_KEY) || "Out Of Work");
     const [seconds, setSeconds] = useState(0);
     const timerRef = useRef<NodeJS.Timeout | null>(null);
+
+    // Choose AUX options based on role
+    const auxOptions =
+        employee && (employee.role === "sup" || employee.role === "admin")
+            ? SUP_ADMIN_AUX_OPTIONS
+            : BASE_AUX_OPTIONS;
 
     // On mount, set timer based on localStorage or initialize if missing
     useEffect(() => {
@@ -60,13 +74,7 @@ const AgentBar = () => {
         // eslint-disable-next-line
     }, [aux]);
 
-    // Update localStorage every second with the new start time (now - seconds)
-    // useEffect(() => {
-    //     const startTime = Date.now() - seconds * 1000;
-    //     localStorage.setItem(AUX_TIME_KEY, startTime.toString());
-    // }, [seconds]);
-
-    const auxOption = AUX_OPTIONS.find(opt => opt.value === aux);
+    const auxOption = auxOptions.find(opt => opt.value === aux);
 
     return (
         <header className="fixed top-0 left-0 w-full z-50 bg-[#fbf4e9] shadow h-20 flex items-center justify-center">
@@ -77,7 +85,6 @@ const AgentBar = () => {
                             {employee.role.toUpperCase()}
                         </span>
                     )} {employee?.employee_name || employee?.username || "Unknown"}
-
                 </span>
                 <div className="flex items-center gap-2">
                     <span className={`w-4 h-4 rounded-full ${auxOption?.color} inline-block border border-gray-300`} />
@@ -86,7 +93,7 @@ const AgentBar = () => {
                         value={aux}
                         onChange={e => setAux(e.target.value)}
                     >
-                        {AUX_OPTIONS.map(opt => (
+                        {auxOptions.map(opt => (
                             <option key={opt.value} value={opt.value}>{opt.label}</option>
                         ))}
                     </select>

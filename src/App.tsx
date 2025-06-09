@@ -12,10 +12,12 @@ import AgentBar from "./Components/AgentBar.tsx";
 
 import GetAssistance from "./pages/GetAssistance";
 import SourceOfKnowledge from "./pages/SourceOfKnowledge";
+import EmployeeManagement from "./pages/EmployeeManagement";
 
 function AppContent() {
   const location = useLocation();
   const { isLoggedIn, loading } = useAuthStatus();
+
   const isLoginPage = location.pathname === "/" || location.pathname.toLowerCase().startsWith("/login");
 
   if (loading) {
@@ -62,6 +64,7 @@ function AppContent() {
                 <Route path="/Dashboard" element={<Dashboard />} />
                 <Route path="/GetAssistance" element={<GetAssistance />} />
                 <Route path="/SourceOfKnowledge" element={<SourceOfKnowledge />} />
+                <Route path="/EmployeeManagement" element={<EmployeeManagement />} />
               </Route>
             </Routes>
           </div>

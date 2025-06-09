@@ -1,20 +1,32 @@
-import { useEffect } from "react"
-import { useAppDispatch, useAppSelector } from "../hooks/useTypedHooks"
-import { fetchReports } from "../features/reports/reportThunk"
-import ReportForm from "../features/reports/ReportForm"
-import ReportsTable from "../features/reports/ReportsTable"
-import ReportDetail from "../features/reports/ReportDetail"
-import PageWrapper from "../Components/PageWrapper"
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../hooks/useTypedHooks";
+import { fetchReports } from "../features/reports/reportThunk";
+import { fetchEmployees } from "../features/employees/employeeThunks";
+import ReportForm from "../features/reports/ReportForm";
+import ReportsTable from "../features/reports/ReportsTable";
+import ReportDetail from "../features/reports/ReportDetail";
+import PageWrapper from "../Components/PageWrapper";
 
 function Reports() {
-  const dispatch = useAppDispatch()
-  const { selectedCustomer } = useAppSelector((state) => state.customers)
+  const dispatch = useAppDispatch();
+  const { selectedCustomer } = useAppSelector((state) => state.customers);
 
   useEffect(() => {
     if (selectedCustomer?.customer_id) {
-      dispatch(fetchReports(selectedCustomer.customer_id))
+      dispatch(fetchReports(selectedCustomer.customer_id));
     }
-  }, [dispatch, selectedCustomer])
+  }, [dispatch, selectedCustomer]);
+
+  useEffect(() => {
+    dispatch(fetchEmployees()).then((result) => {
+      const payload = result.payload as { items?: any[] } | undefined;
+      if (payload && Array.isArray(payload.items)) {
+        //console.log("fetchEmployees result:", payload.items);
+      } else {
+        //console.warn("fetchEmployees: No items found in payload", payload);
+      }
+    });
+  }, [dispatch]);
 
   return (
     <PageWrapper>
@@ -29,8 +41,7 @@ function Reports() {
         <ReportDetail />
       </div>
     </PageWrapper>
-
-  )
+  );
 }
 
-export default Reports
+export default Reports;

@@ -4,10 +4,20 @@ import MenuItem from "./MenuItem";
 import { motion } from "framer-motion";
 import { useAppSelector } from "../hooks/useTypedHooks";
 
+const AUX_STORAGE_KEY = "cat_agent_aux";
+const AUX_TIME_KEY = "cat_agent_aux_start_time";
+
 export default function SideMenu() {
   const { handleLogout, isLoading } = useLogout();
   // @ts-ignore
   const employee = useAppSelector((state) => state.employee.current?.items?.[0]);
+
+  // Reset AUX info on logout
+  const handleLogoutAndResetAux = () => {
+    localStorage.removeItem(AUX_STORAGE_KEY);
+    localStorage.removeItem(AUX_TIME_KEY);
+    handleLogout();
+  };
 
   return (
     <motion.aside
@@ -36,6 +46,10 @@ export default function SideMenu() {
         <MenuItem to="/Reports" icon="document" label="Reports" />
         <MenuItem to="/GetAssistance" icon="chatbubbles" label="Get Assistance" />
         <MenuItem to="/SourceOfKnowledge" icon="book" label="Source Of Knowledge" />
+        {/* Only show Employee Management for admin */}
+        {employee && employee.role === "admin" && (
+          <MenuItem to="/EmployeeManagement" icon="people" label="Employee Management" />
+        )}
       </nav>
       <motion.div
         initial={{ y: 20, opacity: 0 }}
@@ -46,7 +60,7 @@ export default function SideMenu() {
         <motion.button
           whileTap={{ scale: 0.96 }}
           whileHover={{ scale: 1.03 }}
-          onClick={handleLogout}
+          onClick={handleLogoutAndResetAux}
           disabled={isLoading}
           className="w-full px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition font-semibold disabled:opacity-60 shadow"
         >

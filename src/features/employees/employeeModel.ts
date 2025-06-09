@@ -1,10 +1,10 @@
 export interface Employee {
     id: number;
     idEmployee: string;
-    employeeName: string;
+    employee_name: string;
     username: string;
     employeeNumber: string;
-    employeeEmail: string;
-    isActive: boolean;
+    employee_email: string;
+    is_active: boolean;
     role: "agent" | "sup" | "admin";
 }

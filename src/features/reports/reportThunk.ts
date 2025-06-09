@@ -24,13 +24,27 @@ export const addReport = createAsyncThunk<
   try {
     const payload = { ...report, status: report.status || "Open" };
 
-    await axios.post(`${API_URI}/get_reports/?customer_id=${payload.customer_id}&employee_username=${payload.employee_username}&type=${payload.type}&priority=${payload.priority}&description=${payload.description}&subject=${payload.subject}&status=${payload.status}`,{
+    await axios.post(`${API_URI}/get_reports/?customer_id=${payload.customer_id}&employee_username=${payload.employee_username}&type=${payload.type}&priority=${payload.priority}&description=${payload.description}&subject=${payload.subject}&status=${payload.status}`, {
       headers: { "Content-Type": "application/json" }
     });
     dispatch(fetchReports(report.customer_id));
   } catch (error: any) {
     console.log("Error adding report:", error);
-    
+
     return rejectWithValue(error.response?.data?.error || error.message || "Failed to add report");
+  }
+});
+
+export const assignReport = createAsyncThunk<
+  void,
+  { reportId: number; assignee: string; customerId: number },
+  { rejectValue: string; dispatch: any }
+>("reports/assignReport", async ({ reportId, assignee, customerId }, { rejectWithValue, dispatch }) => {
+  try {
+    await axios.patch(`${API_URI}/reports/${reportId}/assign`, { assigned_to: assignee });
+    // Optionally refetch reports for the customer
+    dispatch(fetchReports(customerId));
+  } catch (error: any) {
+    return rejectWithValue(error.response?.data?.error || error.message || "Failed to assign report");
   }
 });

@@ -4,15 +4,12 @@ import { useState, useEffect } from "react";
 import { loginEmployee } from "../features/auth/authThunk";
 import { fetchEmployeeByEmail } from "../features/employees/employeeThunks";
 import WelcomeModal from "../Components/WelcomeModal";
-
-
 import { useAuthStatus } from "../hooks/useAuthStatus";
-import PageWrapper from "../Components/PageWrapper";
 
 export default function Login() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { loading, error, employee } = useAppSelector((state) => state.auth);
+  const { loading, error: authError } = useAppSelector((state) => state.auth);
   const employeeState = useAppSelector((state) => state.employee);
 
   const { isLoggedIn } = useAuthStatus();
@@ -32,21 +29,29 @@ export default function Login() {
     event.preventDefault();
     setLocalError(null);
 
-    const result = await dispatch(fetchEmployeeByEmail(email));
-    console.log("Fetch Employee Result:", result);
+    // Basic validation
+    if (!email || !password) {
+      setLocalError("Please enter both email and password.");
+      return;
+    }
 
+    // Check if employee exists
+    const result = await dispatch(fetchEmployeeByEmail(email));
     if (fetchEmployeeByEmail.rejected.match(result)) {
       setLocalError("Employee not found or not authorized.");
       return;
     }
 
+    // Try login
     try {
-      const response = await dispatch(loginEmployee({ email, password })).unwrap();
-      console.log("Login successful", response);
+      await dispatch(loginEmployee({ email, password })).unwrap();
       navigate("/dashboard");
-    } catch (error) {
-      setLocalError("Login Failed: " + (error as string));
-      console.error("Login Failed: ", error);
+    } catch (error: any) {
+      setLocalError(
+        error?.message === "Rejected"
+          ? "Invalid email or password."
+          : "Login Failed: " + (error?.message || "Unknown error")
+      );
     }
   };
 
@@ -55,7 +60,6 @@ export default function Login() {
       <WelcomeModal open={showModal} onClose={() => setShowModal(false)} />
       <div className="w-full max-w-md bg-white p-8">
         <div className="flex flex-col items-center">
-          {/* Generic user icon SVG */}
           <div className="bg-[#3a1b10] rounded-full p-3 mb-4">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -111,9 +115,9 @@ export default function Login() {
               className="mt-2 block w-full rounded-lg bg-[#fbf4e9] px-3 py-2 text-base text-[#3a1b10] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#3a1b10] border border-gray-200"
             />
           </div>
-          {(localError || error || employeeState.error) && (
+          {(localError || authError || employeeState.error) && (
             <p className="text-sm text-red-600 text-center">
-              {localError || error || employeeState.error}
+              {localError || authError || employeeState.error}
             </p>
           )}
           <div>

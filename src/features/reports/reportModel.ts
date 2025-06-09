@@ -9,4 +9,5 @@ export interface Report {
   type: string;
   created_at: string;
   updated_at?: string;
+  assigned_to?: string;
 }
