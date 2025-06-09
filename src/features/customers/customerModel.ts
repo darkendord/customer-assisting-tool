@@ -71,36 +71,4 @@ export class CustomerModel {
     static parseList(rawData: any[]): CustomerModel[] {
         return rawData.map(item => new CustomerModel(item));
     }
-
-    private validate(): void {
-        if (!this.first_name || !this.last_name) {
-            throw new Error('First name and last name are required');
-        }
-        if (!this.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.email)) {
-            throw new Error('Valid email is required');
-        }
-        if (!this.account_number) {
-            throw new Error('Account number is required');
-        }
-        if (!(this.customer_type in CustomerType)) {
-            throw new Error(`Invalid customer type: ${this.customer_type}`);
-        }
-        if (!(this.status in CustomerStatus)) {
-            throw new Error(`Invalid status: ${this.status}`);
-        }
-        if (this.phone_number && !/^[0-9]{10,15}$/.test(this.phone_number)) {
-            throw new Error('Phone number must be 10-15 digits');
-        }
-        if (this.postal_code && !/^[0-9]{5}(-[0-9]{4})?$/.test(this.postal_code)) {
-            throw new Error('Postal code must be 5 or 9 digits (e.g., 12345 or 12345-6789)');
-        }
-        // Optional: Validate ISO date strings for created_at and updated_at
-        const dateRegex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.*Z$/;
-        if (this.created_at && !dateRegex.test(this.created_at)) {
-            throw new Error('created_at must be a valid ISO date string');
-        }
-        if (this.updated_at && !dateRegex.test(this.updated_at)) {
-            throw new Error('updated_at must be a valid ISO date string');
-        }
-    }
 }

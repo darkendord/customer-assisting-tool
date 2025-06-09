@@ -16,26 +16,26 @@ export interface ProductData {
     updated_at?: string;
 }
 
-export class ProductModel {
-    account_number: string;
-    customer_id: number;
-    account_type: ProductType | string;
-    balance?: number;
-    status: string;
-    created_at?: string;
-    updated_at?: string;
+// export class ProductModel {
+//     account_number: string;
+//     customer_id: number;
+//     account_type: ProductType | string;
+//     balance?: number;
+//     status: string;
+//     created_at?: string;
+//     updated_at?: string;
 
-    constructor(data: ProductData) {
-        this.account_number = data.account_number;
-        this.customer_id = data.customer_id;
-        this.account_type = data.account_type;
-        this.balance = data.balance;
-        this.status = data.status;
-        this.created_at = data.created_at;
-        this.updated_at = data.updated_at;
-    }
+//     constructor(data: ProductData) {
+//         this.account_number = data.account_number;
+//         this.customer_id = data.customer_id;
+//         this.account_type = data.account_type;
+//         this.balance = data.balance;
+//         this.status = data.status;
+//         this.created_at = data.created_at;
+//         this.updated_at = data.updated_at;
+//     }
 
-    static parseList(rawData: any[]): ProductModel[] {
-        return rawData.map(item => new ProductModel(item));
-    }
-}
+//     static parseList(rawData: any[]): ProductModel[] {
+//         return rawData.map(item => new ProductModel(item));
+//     }
+// }

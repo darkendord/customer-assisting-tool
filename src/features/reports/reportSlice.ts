@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Report } from "./reportModel";
-import { fetchReports, addReport } from "./reportThunk";
+import { fetchReports } from "./reportThunk";
 
 interface ReportsState {
   data: Report[];

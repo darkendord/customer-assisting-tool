@@ -1,26 +1,22 @@
 import { useAppDispatch, useAppSelector } from "../../hooks/useTypedHooks";
-import { selectActiveAgents } from "../employees/employeeSelectors";
 import { clearSelectedReportData } from "./reportSlice";
 import { assignReport } from "./reportThunk";
-import { useMemo } from "react";
-import { Report } from "./reportModel";
-import { Employee } from "../employees/employeeModel";
 
-function convertReportsToCSV(reports: Report[]): string {
-    if (!reports || !reports.length) return "";
-    const headers = Object.keys(reports[0]);
-    const csvRows = [
-        headers.join(","),
-        //@ts-ignore
-        ...reports.map(r => headers.map(h => `"${(r[h] ?? "").toString().replace(/"/g, '""')}"`).join(","))
-    ];
-    return csvRows.join("\n");
-}
+// function convertReportsToCSV(reports: Report[]): string {
+//     if (!reports || !reports.length) return "";
+//     const headers = Object.keys(reports[0]);
+//     const csvRows = [
+//         headers.join(","),
+//         //@ts-ignore
+//         ...reports.map(r => headers.map(h => `"${(r[h] ?? "").toString().replace(/"/g, '""')}"`).join(","))
+//     ];
+//     return csvRows.join("\n");
+// }
 
 const ReportDetail = () => {
     const dispatch = useAppDispatch();
     const report = useAppSelector((state) => state.reports.selectedReport);
-    const reports = useAppSelector((state) => state.reports.data);
+    // const reports = useAppSelector((state) => state.reports.data);
     //@ts-ignore
     const employee = useAppSelector((state) => state.employee.current?.items?.[0]);
     // const activeAgents = useAppSelector(selectActiveAgents);
@@ -30,17 +26,17 @@ const ReportDetail = () => {
         dispatch(assignReport({ reportId, assignee, customerId: report.customer_id }));
     };
 
-    const handleDownloadCSV = () => {
-        if (!reports || !reports.length) return;
-        const csv = convertReportsToCSV(reports);
-        const blob = new Blob([csv], { type: "text/csv" });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = "reports.csv";
-        link.click();
-        URL.revokeObjectURL(url);
-    };
+    // const handleDownloadCSV = () => {
+    //     if (!reports || !reports.length) return;
+    //     const csv = convertReportsToCSV(reports);
+    //     const blob = new Blob([csv], { type: "text/csv" });
+    //     const url = URL.createObjectURL(blob);
+    //     const link = document.createElement("a");
+    //     link.href = url;
+    //     link.download = "reports.csv";
+    //     link.click();
+    //     URL.revokeObjectURL(url);
+    // };
 
     if (!report) return null;
 

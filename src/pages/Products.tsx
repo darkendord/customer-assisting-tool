@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../app/store";
 import { getCustomerProducts } from "../features/products/productThunk";
-import { ProductData, ProductModel } from "../features/products/ProductModel";
+import { ProductData } from "../features/products/ProductModel";
 import PageWrapper from "../Components/PageWrapper";
 
 export default function Products() {

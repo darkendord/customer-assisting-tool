@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAppSelector } from "../hooks/useTypedHooks";
 
 // Default AUX options for agents

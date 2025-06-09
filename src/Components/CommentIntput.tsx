@@ -8,8 +8,7 @@ const CommentInput = () => {
     const { selectedCustomer } = useAppSelector((state) => state.customers);
     const employeeData = useAppSelector((state) => state.employee.current);
     //@ts-ignore
-    const employee = Array.isArray(employeeData?.items) && employeeData.items.length > 0
-        ? employeeData.items[0]
+    const employee = Array.isArray(employeeData?.items) && employeeData.items.length > 0 ? employeeData.items[0]
         : null;
     //console.log("Employee Data:", employee);
 

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ProductData, ProductModel } from "./ProductModel";
+import { ProductData } from "./ProductModel";
 import { getCustomerProducts } from "./productThunk";
 
 interface ProductState {

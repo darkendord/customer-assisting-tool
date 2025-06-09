@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { ProductData, ProductModel } from "./ProductModel";
+import { ProductData } from "./ProductModel";
 
 
 const API_URI = import.meta.env.VITE_CTM_BASE_API;
