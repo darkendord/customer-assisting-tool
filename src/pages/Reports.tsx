@@ -4,6 +4,7 @@ import { fetchReports } from "../features/reports/reportThunk"
 import ReportForm from "../features/reports/ReportForm"
 import ReportsTable from "../features/reports/ReportsTable"
 import ReportDetail from "../features/reports/ReportDetail"
+import PageWrapper from "../Components/PageWrapper"
 
 function Reports() {
   const dispatch = useAppDispatch()
@@ -16,16 +17,19 @@ function Reports() {
   }, [dispatch, selectedCustomer])
 
   return (
-    <div className="w-full max-w-5xl mx-auto">
-      <ReportForm />
-      <div className="bg-white rounded-3xl shadow-lg p-8">
-        <h2 className="text-2xl font-bold tracking-tight text-[#3a1b10] mb-4">
-          Reports
-        </h2>
-        <ReportsTable />
+    <PageWrapper>
+      <div className="w-full max-w-5xl mx-auto">
+        <ReportForm />
+        <div className="bg-white rounded-3xl shadow-lg p-8">
+          <h2 className="text-2xl font-bold tracking-tight text-[#3a1b10] mb-4">
+            Reports
+          </h2>
+          <ReportsTable />
+        </div>
+        <ReportDetail />
       </div>
-      <ReportDetail />
-    </div>
+    </PageWrapper>
+
   )
 }
 

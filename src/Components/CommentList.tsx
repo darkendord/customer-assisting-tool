@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useCallback } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks/useTypedHooks";
 import { getMoreComments } from "../features/comments/commentThunk";
 import CommentContainer from "./CommentContainer";
+import PageWrapper from "./PageWrapper";
 
 const CommentList = () => {
     const dispatch = useAppDispatch();
@@ -31,33 +32,35 @@ const CommentList = () => {
     }, [handleObserver]);
 
     return (
-        <div className="comment-container">
-            {[...comments]
-                .sort((a, b) => new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime())
-                .map((comment, idx) => (
-                    <CommentContainer
-                        key={comment.created_at || idx}
-                        date={
-                            comment.created_at
-                                ? new Date(comment.created_at).toLocaleString(undefined, {
-                                    year: "numeric",
-                                    month: "short",
-                                    day: "numeric",
-                                    hour: "2-digit",
-                                    minute: "2-digit",
-                                })
-                                : ""
-                        }
-                        text={
-                            <span>
-                                <span className="font-bold">{comment.employee_username}:</span> {comment.comment_text}
-                            </span>
-                        }
-                    />
-                ))}
-            <div ref={loader} />
-            {isLoadingMore && <div className="text-center py-2">Loading more...</div>}
-        </div>
+        <PageWrapper>
+            <div className="comment-container">
+                {[...comments]
+                    .sort((a, b) => new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime())
+                    .map((comment, idx) => (
+                        <CommentContainer
+                            key={comment.created_at || idx}
+                            date={
+                                comment.created_at
+                                    ? new Date(comment.created_at).toLocaleString(undefined, {
+                                        year: "numeric",
+                                        month: "short",
+                                        day: "numeric",
+                                        hour: "2-digit",
+                                        minute: "2-digit",
+                                    })
+                                    : ""
+                            }
+                            text={
+                                <span>
+                                    <span className="font-bold">{comment.employee_username}:</span> {comment.comment_text}
+                                </span>
+                            }
+                        />
+                    ))}
+                <div ref={loader} />
+                {isLoadingMore && <div className="text-center py-2">Loading more...</div>}
+            </div>
+        </PageWrapper>
     );
 };
 

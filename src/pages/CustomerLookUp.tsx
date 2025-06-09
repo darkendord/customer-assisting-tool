@@ -5,6 +5,7 @@ import CommentList from "../Components/CommentList";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks/useTypedHooks";
 import { getComments } from "../features/comments/commentThunk";
+import PageWrapper from "../Components/PageWrapper";
 
 function CustomerLookUp() {
   const dispatch = useAppDispatch();
@@ -17,12 +18,14 @@ function CustomerLookUp() {
   }, [dispatch, selectedCustomer]);
 
   return (
-    <div className="w-full max-w-5xl mx-auto">
-      <SearchCustomer />
-      <CustomerInformation />
-      <CommentList />
-      <CommentIntput />
-    </div>
+    <PageWrapper>
+      <div className="w-full max-w-5xl mx-auto">
+        <SearchCustomer />
+        <CustomerInformation />
+        <CommentList />
+        <CommentIntput />
+      </div>
+    </PageWrapper>
   )
 }
 

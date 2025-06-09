@@ -1,98 +1,52 @@
-import { NavLink, Link } from "react-router-dom";
-import IonIcon from "@reacticons/ionicons";
+import { Link } from "react-router-dom";
 import { useLogout } from "../hooks/useAuthStatus.ts";
+import MenuItem from "./MenuItem";
+import { motion } from "framer-motion";
 
 export default function SideMenu() {
   const { handleLogout, isLoading } = useLogout();
 
   return (
-    <aside className="w-64 h-[80vh] flex flex-col bg-[#3a1b10] text-white shadow-lg rounded-[32px] mt-15 ml-5">
-      <div className="flex items-center justify-center h-20 bg-[#4b2e19] rounded-t-[32px]">
+    <motion.aside
+      initial={{ x: -80, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      transition={{ type: "spring", stiffness: 80, damping: 18 }}
+      className="w-64 h-[80vh] flex flex-col bg-[#3a1b10] text-white shadow-lg rounded-[32px] mt-15 ml-5"
+    >
+      <motion.div
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ delay: 0.1 }}
+        className="flex items-center justify-center h-20 bg-[#4b2e19] rounded-t-[32px]"
+      >
         <Link to="/Dashboard" className="text-3xl font-bold tracking-wide">
           CMT
         </Link>
-      </div>
+      </motion.div>
       <nav className="flex flex-col flex-1 items-start p-6 space-y-3">
-        <NavLink
-          to="/Dashboard"
-          className={({ isActive }) =>
-            `flex items-center px-3 py-2 rounded-lg w-full transition ${isActive
-              ? "bg-[#fbf4e9] text-[#3a1b10] font-semibold"
-              : "hover:bg-[#5c3a23] hover:text-[#fbf4e9]"
-            }`
-          }
-        >
-          <IonIcon name="grid" />
-          <span className="ml-3">Dashboard</span>
-        </NavLink>
-        <NavLink
-          to="/CustomerLookUp"
-          className={({ isActive }) =>
-            `flex items-center px-3 py-2 rounded-lg w-full transition ${isActive
-              ? "bg-[#fbf4e9] text-[#3a1b10] font-semibold"
-              : "hover:bg-[#5c3a23] hover:text-[#fbf4e9]"
-            }`
-          }
-        >
-          <IonIcon name="person-circle" />
-          <span className="ml-3">Customer View</span>
-        </NavLink>
-        <NavLink
-          to="/Products"
-          className={({ isActive }) =>
-            `flex items-center px-3 py-2 rounded-lg w-full transition ${isActive
-              ? "bg-[#fbf4e9] text-[#3a1b10] font-semibold"
-              : "hover:bg-[#5c3a23] hover:text-[#fbf4e9]"
-            }`
-          }
-        >
-          <IonIcon name="card" />
-          <span className="ml-3">Products</span>
-        </NavLink>
-        <NavLink
-          to="/Reports"
-          className={({ isActive }) =>
-            `flex items-center px-3 py-2 rounded-lg w-full transition ${isActive
-              ? "bg-[#fbf4e9] text-[#3a1b10] font-semibold"
-              : "hover:bg-[#5c3a23] hover:text-[#fbf4e9]"
-            }`
-          }
-        >
-          <IonIcon name="document" />
-          <span className="ml-3">Reports</span>
-        </NavLink>
-        <NavLink
-          to="/GetAssistance"
-          className={({ isActive }) =>
-            `flex items-center px-3 py-2 rounded-lg w-full transition ${isActive
-              ? "bg-[#fbf4e9] text-[#3a1b10] font-semibold"
-              : "hover:bg-[#5c3a23] hover:text-[#fbf4e9]"}`
-          }
-        >
-          <IonIcon name="chatbubbles" />
-          <span className="ml-3">Get Assistance</span>
-        </NavLink>
-        <NavLink
-          to="/SourceOfKnowledge"
-          className={({ isActive }) =>
-            `flex items-center px-3 py-2 rounded-lg w-full transition ${isActive
-              ? "bg-[#fbf4e9] text-[#3a1b10] font-semibold"
-              : "hover:bg-[#5c3a23] hover:text-[#fbf4e9]"}`
-          }
-        >
-          <IonIcon name="book" />
-          <span className="ml-3">Source Of Knowledge</span>
-        </NavLink>
+        <MenuItem to="/Dashboard" icon="grid" label="Dashboard" />
+        <MenuItem to="/CustomerLookUp" icon="person-circle" label="Customer View" />
+        <MenuItem to="/Products" icon="card" label="Products" />
+        <MenuItem to="/Reports" icon="document" label="Reports" />
+        <MenuItem to="/GetAssistance" icon="chatbubbles" label="Get Assistance" />
+        <MenuItem to="/SourceOfKnowledge" icon="book" label="Source Of Knowledge" />
       </nav>
-      <div className="p-6">
-        <button
+      <motion.div
+        initial={{ y: 20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 0.2 }}
+        className="p-6"
+      >
+        <motion.button
+          whileTap={{ scale: 0.96 }}
+          whileHover={{ scale: 1.03 }}
           onClick={handleLogout}
           disabled={isLoading}
-          className="w-full px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition font-semibold disabled:opacity-60"
+          className="w-full px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition font-semibold disabled:opacity-60 shadow"
         >
           {isLoading ? "Logging out..." : "Logout"}
-        </button>
-      </div>
-    </aside>
+        </motion.button>
+      </motion.div>
+    </motion.aside>
   );
 }
