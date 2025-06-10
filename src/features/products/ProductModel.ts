@@ -16,6 +16,30 @@ export interface ProductData {
     updated_at?: string;
 }
 
+export interface LoanData {
+    loan_id: number;
+    account_number: string;
+    loan_type: string;
+    amount: number;
+    interest_rate: number;
+    start_date: string;
+    end_date: string;
+    status: string;
+    created_at: string;
+}
+
+
+export interface CardData {
+    card_id: number;
+    account_number: string;
+    card_type: string;
+    card_number: string;
+    expiry_date: string;
+    cvv: number;
+    status: string;
+    created_at: string;
+}
+
 // export class ProductModel {
 //     account_number: string;
 //     customer_id: number;
