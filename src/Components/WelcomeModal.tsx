@@ -16,7 +16,7 @@ const WelcomeModal = ({ open, onClose }: { open: boolean; onClose: () => void })
                 <p className="mb-6 text-[#3a1b10]">Welcome to the Customer Assisting Tool. Please use the following inputs to test the app:</p>
                 <ul className="list-disc pl-5 mb-6 text-[#3a1b10]">
                     <li>Use email: <span className="font-bold">lisa.davis@company.com</span> and password: <span className="font-bold">12345678</span> to login as customer service agent.</li>
-                    <li>Use the "Customer Look Up" to search for customers, ID: <span className="font-bold">ACC987654321</span> for testing.</li>
+                    <li>Use the "Customer Look Up" to search for customers, ID: <span className="font-bold">ACC10001</span> for testing.</li>
                     <li>Use the "Products" section to view available products.</li>
                     <li>Check the "Reports" section for insights.</li>
                 </ul>
