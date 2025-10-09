@@ -16,5 +16,5 @@ export const loginEmployee = createAsyncThunk(
 
 export const logoutEmployee = createAsyncThunk(
     "auth/logoutEmployee", async () => {
-    await signOut(auth);
-});
+        await signOut(auth);
+    });

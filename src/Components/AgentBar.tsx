@@ -1,5 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { useAppSelector } from "../hooks/useTypedHooks";
+import { Employee } from "../features/employees/employeeModel";
+import Time from "./Time";
 
 // Default AUX options for agents
 const BASE_AUX_OPTIONS = [
@@ -29,50 +31,14 @@ function formatTime(seconds: number) {
 
 const AgentBar = () => {
     // @ts-ignore
-    const employee = useAppSelector((state) => state.employee.current?.items?.[0]);
-    const [aux, setAux] = useState(() => localStorage.getItem(AUX_STORAGE_KEY) || "Out Of Work");
-    const [seconds, setSeconds] = useState(0);
-    const timerRef = useRef<NodeJS.Timeout | null>(null);
+    const employee: Employee = useAppSelector((state) => state.employee.current[0]);
+    const [aux, setAux] = useState(() => localStorage.getItem("cat_agent_aux") || "Out Of Work");
 
     // Choose AUX options based on role
     const auxOptions =
         employee && (employee.role === "sup" || employee.role === "admin")
             ? SUP_ADMIN_AUX_OPTIONS
             : BASE_AUX_OPTIONS;
-
-    // On mount, set timer based on localStorage or initialize if missing
-    useEffect(() => {
-        const storedAux = localStorage.getItem(AUX_STORAGE_KEY) || "Out Of Work";
-        const storedStart = localStorage.getItem(AUX_TIME_KEY);
-
-        setAux(storedAux);
-
-        let initialSeconds = 0;
-        if (storedStart) {
-            const start = parseInt(storedStart, 10);
-            initialSeconds = Math.floor((Date.now() - start) / 1000);
-        } else {
-            // If no start time, set it now
-            localStorage.setItem(AUX_TIME_KEY, Date.now().toString());
-        }
-        setSeconds(initialSeconds);
-
-        if (timerRef.current) clearInterval(timerRef.current);
-        timerRef.current = setInterval(() => setSeconds(s => s + 1), 1000);
-        return () => { if (timerRef.current) clearInterval(timerRef.current); };
-    }, []);
-
-    // On AUX change, reset timer and store new start time
-    useEffect(() => {
-        localStorage.setItem(AUX_STORAGE_KEY, aux);
-        localStorage.setItem(AUX_TIME_KEY, Date.now().toString());
-        setSeconds(0);
-
-        if (timerRef.current) clearInterval(timerRef.current);
-        timerRef.current = setInterval(() => setSeconds(s => s + 1), 1000);
-        return () => { if (timerRef.current) clearInterval(timerRef.current); };
-        // eslint-disable-next-line
-    }, [aux]);
 
     const auxOption = auxOptions.find(opt => opt.value === aux);
 
@@ -99,7 +65,7 @@ const AgentBar = () => {
                     </select>
                 </div>
                 <span className="ml-4 text-[#3a1b10] font-medium">
-                    In <span className="font-bold">{aux}</span> for <span className="font-mono">{formatTime(seconds)}</span>
+                    In <span className="font-bold">{aux}</span> for <Time aux={aux} />
                 </span>
             </div>
         </header>

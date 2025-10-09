@@ -16,6 +16,8 @@ export const getEmployees = async (): Promise<Employee[]> => {
 };
 
 export const getEmployeeByEmail = async (email: string): Promise<Employee> => {
-    const response = await axios.get(`${API_URI}/get_employees/${email}`);
+    const response = await axios.get(`http://localhost:5001/employees?email=${email}`);
+    console.log(response);
+
     return response.data;
 };
