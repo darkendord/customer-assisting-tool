@@ -9,7 +9,9 @@ import PageWrapper from "../Components/PageWrapper";
 
 function CustomerLookUp() {
   const dispatch = useAppDispatch();
-  const { selectedCustomer } = useAppSelector((state) => state.customers);
+  const { selectedCustomer } = useAppSelector((state: any) => state.customers);
+
+  console.log("Selected Customer in CustomerLookUp:", selectedCustomer);
 
   useEffect(() => {
     if (selectedCustomer?.customer_id) {

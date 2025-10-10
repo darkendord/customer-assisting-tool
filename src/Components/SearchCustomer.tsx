@@ -4,7 +4,7 @@ import { AppDispatch } from "../app/store.ts";
 import { getSingleCustomer } from "../features/customers/customerThunk.ts";
 import { clearCustomerData } from "../features/customers/customerSlice.ts";
 import { clearProductData } from "../features/products/productSlice.ts";
-import { clearCommentsData } from "../features/comments/commentSlice.ts.ts";
+import { clearCommentsData } from "../features/comments/commentSlice.ts";
 import { clearReportsData, clearSelectedReportData } from "../features/reports/reportSlice.ts";
 
 const SearchCustomer = () => {
