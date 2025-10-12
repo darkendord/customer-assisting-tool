@@ -97,7 +97,7 @@ function signOutRep(){
 
 
 function component (){
-  if(!isLogin){
+  if(isLogin){
   return <Login/>
 }else{
   return(
