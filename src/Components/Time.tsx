@@ -25,7 +25,7 @@ export default function Time({
 
     // On mount, set timer based on localStorage or initialize if missing
     useEffect(() => {
-        const storedAux = localStorage.getItem(auxStorageKey) || "Out Of Work";
+        // const storedAux = localStorage.getItem(auxStorageKey) || "Out Of Work";
         const storedStart = localStorage.getItem(auxTimeKey);
 
         let initialSeconds = 0;

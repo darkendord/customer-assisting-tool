@@ -20,15 +20,6 @@ const SUP_ADMIN_AUX_OPTIONS = [
     { value: "Admin Tasks", label: "Admin Tasks", color: "bg-purple-600" },
 ];
 
-const AUX_STORAGE_KEY = "cat_agent_aux";
-const AUX_TIME_KEY = "cat_agent_aux_start_time";
-
-function formatTime(seconds: number) {
-    const m = Math.floor(seconds / 60).toString().padStart(2, "0");
-    const s = (seconds % 60).toString().padStart(2, "0");
-    return `${m}:${s}`;
-}
-
 const AgentBar = () => {
     // @ts-ignore
     const employee: Employee = useAppSelector((state) => state.employee.current[0]);
