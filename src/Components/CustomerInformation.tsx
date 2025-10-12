@@ -7,7 +7,9 @@ function CustomerInformation() {
     const { selectedCustomer, isLoading, error } = useSelector((state: RootState) => state.customers);
 
     // Format address from multiple fields
+    console.log(selectedCustomer);
     const getAddress = (customer: CustomerModel) => {
+
         const parts = [
             customer.address_line1,
             customer.address_line2,

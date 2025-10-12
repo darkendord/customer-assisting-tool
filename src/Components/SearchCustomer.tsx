@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "../app/store";
-import { getSingleCustomer } from "../features/customers/customerThunk";
-import { clearCustomerData } from "../features/customers/customerSlice";
-import { clearProductData } from "../features/products/productSlice";
+import { AppDispatch } from "../app/store.ts";
+import { getSingleCustomer } from "../features/customers/customerThunk.ts";
+import { clearCustomerData } from "../features/customers/customerSlice.ts";
+import { clearProductData } from "../features/products/productSlice.ts";
 import { clearCommentsData } from "../features/comments/commentSlice.ts";
-import { clearReportsData, clearSelectedReportData } from "../features/reports/reportSlice";
+import { clearReportsData, clearSelectedReportData } from "../features/reports/reportSlice.ts";
 
 const SearchCustomer = () => {
     const [search, setSearch] = useState<string>("");

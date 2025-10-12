@@ -3,7 +3,7 @@ import axios from 'axios';
 import { CustomerData } from './customerModel';
 
 
-const API_URI = import.meta.env.VITE_CTM_BASE_API;
+const API_URI = import.meta.env.VITE_SUPABASE_URL;
 
 export const getAllCustomers = createAsyncThunk<
     CustomerData[],
@@ -29,12 +29,14 @@ export const getSingleCustomer = createAsyncThunk<
     "customer/getSingleCustomer",
     async (accountNumber, { rejectWithValue }) => {
         try {
-            const response = await axios.get(`${API_URI}/get_customer/${accountNumber}`);
+            const response = await axios.get(`${API_URI}/customers?account_number=${accountNumber}`);
+
+            console.log(response);
 
             // Ensure the response data is properly mapped to a CustomerModel instance
-            console.log(response.data.items[0]);
+            console.log(response.data[0]);
 
-            return response.data.items[0];
+            return response.data[0];
         } catch (error: any) {
             const errorMessage = error.response?.data?.error || error.message || "Failed to fetch customer";
             return rejectWithValue(errorMessage);

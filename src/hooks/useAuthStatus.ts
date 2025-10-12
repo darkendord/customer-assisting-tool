@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { clearCustomerData } from "../features/customers/customerSlice";
 import { clearReportsData } from "../features/reports/reportSlice";
 import { clearProductData } from "../features/products/productSlice.ts";
-import { clearCommentsData } from "../features/comments/commentSlice.ts.ts";
+import { clearCommentsData } from "../features/comments/commentSlice.ts";
 
 
 // Interface for user status
@@ -55,9 +55,9 @@ export const useLogout = (): { handleLogout: () => Promise<void>; isLoading: boo
             console.error("Error logging out:", error);
         } finally {
             dispatch(clearCustomerData());
-    dispatch(clearProductData());
-    dispatch(clearReportsData());
-    dispatch(clearCommentsData());
+            dispatch(clearProductData());
+            dispatch(clearReportsData());
+            dispatch(clearCommentsData());
             setIsLoading(false);
         }
     };
