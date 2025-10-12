@@ -6,7 +6,7 @@ const API_URI = import.meta.env.VITE_SUPABASE_URL;
 export const getEmployees = async (): Promise<Employee[]> => {
     try {
         const response = await axios.get<Employee[]>(
-            `${API_URI}/get_employees`
+            `${API_URI}/employees`
         );
         return response.data;
     } catch (error) {
