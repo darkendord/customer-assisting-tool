@@ -40,30 +40,26 @@ const commentSlice = createSlice({
             })
             .addCase(getComments.fulfilled, (state, action) => {
                 state.isLoading = false;
-      state.data = action.payload.items;
-      state.offset = action.payload.offset;
-      state.hasMore = action.payload.hasMore;
+                state.data = action.payload;
             })
             .addCase(getComments.rejected, (state, action) => {
                 state.isLoading = false;
-      state.error = action.payload as string;
+                state.error = action.payload as string;
             })
             .addCase(addComment.fulfilled, (state, action) => {
                 state.data.push(action.payload);
             })
-             .addCase(getMoreComments.pending, (state) => {
-      state.isLoadingMore = true;
-    })
-    .addCase(getMoreComments.fulfilled, (state, action) => {
-      state.isLoadingMore = false;
-      state.data = [...state.data, ...action.payload.items];
-      state.offset = action.payload.offset;
-      state.hasMore = action.payload.hasMore;
-    })
-    .addCase(getMoreComments.rejected, (state, action) => {
-      state.isLoadingMore = false;
-      state.error = action.payload as string;
-    });
+            .addCase(getMoreComments.pending, (state) => {
+                state.isLoadingMore = true;
+            })
+            .addCase(getMoreComments.fulfilled, (state, action) => {
+                state.isLoadingMore = false;
+                state.data = [...state.data, ...action.payload];
+            })
+            .addCase(getMoreComments.rejected, (state, action) => {
+                state.isLoadingMore = false;
+                state.error = action.payload as string;
+            });
     },
 });
 export const { resetError, clearCommentsData } = commentSlice.actions;
