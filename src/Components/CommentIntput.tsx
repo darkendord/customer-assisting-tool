@@ -8,18 +8,17 @@ const CommentInput = () => {
     const { selectedCustomer } = useAppSelector((state) => state.customers);
     const employeeData = useAppSelector((state) => state.employee.current);
     //@ts-ignore
-    const employee = Array.isArray(employeeData?.items) && employeeData.items.length > 0 ? employeeData.items[0]
+    const employee = Array.isArray(employeeData) && employeeData.length > 0 ? employeeData[0]
         : null;
-    //console.log("Employee Data:", employee);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (!selectedCustomer?.customer_id || !employee?.username || !text.trim()) return;
+
         dispatch(addComment({
             customer_id: selectedCustomer.customer_id,
             employee_username: employee.username,
-            comment_text: text.trim(),
-            type: "comment",
+            comment_text: text.trim()
         }));
         setText("");
     };
@@ -35,7 +34,7 @@ const CommentInput = () => {
             />
             <button
                 type="submit"
-                className="bg-[#3a1b10] text-white font-semibold rounded-lg px-6 py-2 h-12 hover:bg-[#5c3a23] transition disabled:opacity-60"
+                className="bg-[#3a1b10] text-white font-semibold rounded-lg px-6 py-2 h-12 hover:bg-[#5c3a23] transition disabled:opacity-60 cursor-pointer"
                 disabled={!text.trim()}
             >
                 Comment
